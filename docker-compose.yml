@@ -1,6 +1,7 @@
 version: "3.9"
 services:
     nginx:
+        container_name: nginx_container
         working_dir: /app
         restart: always
         image: "nginx:1.23.2-alpine"
@@ -15,6 +16,7 @@ services:
             - "80:80"
 
     php-fpm:
+        container_name: php_container
         working_dir: /app
         restart: always
         build: docker/php-fpm
@@ -27,6 +29,7 @@ services:
             XDEBUG_MODE: "debug"
 
     mariadb:
+        container_name: mariadb_container
         env_file: .env
         working_dir: /app
         restart: always
@@ -45,6 +48,7 @@ services:
             - "3306:3306"
 
     redis:
+        container_name: redis_container
         image: "redis:latest"
         environment:
             ALLOW_EMPTY_PASSWORD: "yes"
