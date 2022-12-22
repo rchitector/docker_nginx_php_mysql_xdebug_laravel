@@ -8,7 +8,7 @@ services:
         links:
             - php-fpm
         volumes:
-            - ".:/app"
+            - "./source:/app"
             - "./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
             - "./docker/nginx/logs:/var/log/nginx"
         ports:
@@ -21,7 +21,7 @@ services:
         links:
             - mariadb
         volumes:
-            - ".:/app"
+            - "./source:/app"
             - "./docker/php-fpm/php-overrides.ini:/usr/local/etc/php/conf.d/php-overrides.ini"
         environment:
             XDEBUG_MODE: "debug"
@@ -32,7 +32,7 @@ services:
         restart: always
         image: "mariadb:latest"
         volumes:
-            - ".:/app"
+            - "./source:/app"
             - "./docker/mariadb/data:/var/lib/mysql"
             - "./docker/mariadb/logs:/var/log/mysql"
             - "./docker/mariadb/conf:/etc/mysql"
