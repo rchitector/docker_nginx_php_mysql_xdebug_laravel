@@ -1,11 +1,10 @@
 version: "3.9"
 services:
     nginx:
-        container_name: nginx_container
+        container_name: ${PROJECT_NAME}_nginx_container
         working_dir: /app
         restart: always
-        image: "nginx:1.23.2-alpine"
-#        image: "nginx:latest"
+        image: "nginx:latest"
         links:
             - php-fpm
         volumes:
@@ -16,7 +15,7 @@ services:
             - "80:80"
 
     php-fpm:
-        container_name: php_container
+        container_name: ${PROJECT_NAME}_php_container
         working_dir: /app
         restart: always
         build: docker/php-fpm
@@ -25,11 +24,9 @@ services:
         volumes:
             - "./source:/app"
             - "./docker/php-fpm/php-overrides.ini:/usr/local/etc/php/conf.d/php-overrides.ini"
-        environment:
-            XDEBUG_MODE: "debug"
 
     mariadb:
-        container_name: mariadb_container
+        container_name: ${PROJECT_NAME}_mariadb_container
         env_file: .env
         working_dir: /app
         restart: always
@@ -48,7 +45,7 @@ services:
             - "3306:3306"
 
     redis:
-        container_name: redis_container
+        container_name: ${PROJECT_NAME}_redis_container
         image: "redis:latest"
         environment:
             ALLOW_EMPTY_PASSWORD: "yes"

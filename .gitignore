@@ -2,4 +2,4 @@
 .env
 /docker/mariadb/data/
 /docker/mariadb/logs/
-/docker/nginx/log/
+/docker/nginx/logs/
