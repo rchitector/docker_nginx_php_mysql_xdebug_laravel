@@ -15,11 +15,16 @@ git clone https://github.com/rchitector/docker_nginx_php_mysql_xdebug_laravel.gi
 ```
 Чтобы сразу удалить ненужные данные .git, можно выполнить команду:
 ```
-rm -rf !$/.git && rm ./.gitignore
+rm -rf ./.git
+rm ./.gitignore
+rm -rf ./.github
 ```
 
 ### ОКРУЖЕНИЕ
-- скопировать файл **.env.example** в файл с именем **.env**
+- переименовать файл .env.example в файл с именем .env
+```
+mv ./.env.example ./.env
+```
 
 ### xxxxxxxxxxx
 - придумать название проекта в нижнем регистре без пробелов (например my_project)
@@ -60,16 +65,25 @@ sudo systemctl stop docker.service && sudo systemctl stop docker.socket
 <!-- вот тут урок https://www.youtube.com/watch?v=7YuYxbYd3P0 -->
 
 ### Установка Laravel
+- очистить корень папки source:
+```
+rm -rf ./source/*
+```
 - в корне проекта выполнить:
 ```
 git clone https://github.com/laravel/laravel.git ./source
 ```
 Чтобы сразу удалить ненужные данные .git, можно выполнить команду:
 ```
-rm -rf ./source/.git && rm ./source/.gitignore
+rm -rf ./source/.git
+rm ./source/.gitignore
+rm -rf ./source/.github
 ```
 
 - скопировать данные настройки БД из файла **.env** в файл **./source/.env**
+```
+mv ./source/.env.example ./source/.env
+```
 - в файле **./source/.env** заменить **DB_HOST=127.0.0.1** на **DB_HOST=xxxxxxxxxxx_db** чтобы соединение с БД смотрело в контейнер
 - выполнить команду **docker exec -it xxxxxxxxxxx_php_container bash**
 - **xxxxxxxxxxx_php_container** - это имя контейнера, изменить которое можно в файле **docker-compose.yml**
