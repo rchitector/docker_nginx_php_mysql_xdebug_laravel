@@ -18,6 +18,17 @@
 - настройки контейнера лежат в файле **docker/php-fpm/Dockerfile**
 - настройки **PHP** лежат в файле **docker/php-fpm/php-overrides.ini**
 
+**Xdebug + PhpStorm**
+- в настройках PhpStorm: PHP > Servers
+- в поле Host указать название хоста точно такое же как и в настройках **docker/nginx/conf.d/nginx.conf** > server > server_name
+- не забыть добавить так же этот хост в файле /etc/hosts (например строку "127.0.0.1  localhost" где localhost - это название из server_name)
+- поставить галочку Use path mappings
+- указать корень локальной папки и корневой папки внутри сервера.
+- в данном случае для папки source нужно указать /app (что соответствует настройкам в docker-compose.yml xxxxxxxxxxx_php-fpm > volumes > "./source:/app")
+- в меню Run активировать пункт Start Listeniong for PHP Debug connection
+- ставим точку останова в коде и можно пробовать открывать страницу
+- вот тут урок https://www.youtube.com/watch?v=7YuYxbYd3P0
+
 **Установка LARAVEL**
 - в корне проекта выполнить **git clone https://github.com/laravel/laravel.git ./source**
 - скопировать данные настройки БД из файла **.env** в файл **./source/.env**
@@ -27,3 +38,6 @@
 - внутри контейнера выполнить команду **composer install**
 - внутри контейнера выполнить команду **php artisan key:generate**
 - внутри контейнера выполнить команду **php artisan migrate**
+
+**Tests**
+- выполнить команду в терминале: **docker exec -t  xxxxxxxxxxx_php_container php artisan test**

@@ -31,7 +31,7 @@ services:
             - xxxxxxxxxxx_php_network
 
     xxxxxxxxxxx_db:
-        container_name: xxxxxxxxxxx_mariadb_container
+        container_name: xxxxxxxxxxx_db_container
         env_file: .env
         working_dir: /app
         restart: always
