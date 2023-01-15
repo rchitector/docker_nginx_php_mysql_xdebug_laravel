@@ -26,6 +26,16 @@ rm -rf !$/.git && rm ./.gitignore
 - заменить все упоминания **xxxxxxxxxxx** на название проекта
 - заменить все настройки в файле .env (DATABASE_PASSWORD, DATABASE_NAME, DATABASE_USER) на нужные
 
+### Docker
+- запуск службы докера:
+```
+sudo systemctl start docker.service && sudo systemctl start docker.socket
+```
+- остановка службы докера:
+```
+sudo systemctl stop docker.service && sudo systemctl stop docker.socket
+```
+
 ### DB - база данных
 - логи БД лежат в папке: **docker/db/logs**
 - все данные БД лежат в папке: **docker/db/data**
