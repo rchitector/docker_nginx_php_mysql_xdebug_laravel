@@ -1,51 +1,64 @@
 version: "3.9"
 services:
-    nginx:
-        container_name: ${PROJECT_NAME}_nginx_container
+    xxxxxxxxxxx_nginx:
+        container_name: xxxxxxxxxxx_nginx_container
+        image: nginx:latest
         working_dir: /app
         restart: always
-        image: "nginx:latest"
-        links:
-            - php-fpm
-        volumes:
-            - "./source:/app"
-            - "./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
-            - "./docker/nginx/logs:/var/log/nginx"
+        tty: true
         ports:
-            - "80:80"
+            - 80:80
+        links:
+            - xxxxxxxxxxx_php-fpm
+        volumes:
+            - ./source:/app
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+            - ./docker/nginx/logs:/var/log/nginx
+        networks:
+            - xxxxxxxxxxx_php_network
 
-    php-fpm:
-        container_name: ${PROJECT_NAME}_php_container
+    xxxxxxxxxxx_php-fpm:
+        container_name: xxxxxxxxxxx_php_container
         working_dir: /app
         restart: always
         build: docker/php-fpm
         links:
-            - mariadb
+            - xxxxxxxxxxx_db
         volumes:
             - "./source:/app"
             - "./docker/php-fpm/php-overrides.ini:/usr/local/etc/php/conf.d/php-overrides.ini"
+        networks:
+            - xxxxxxxxxxx_php_network
 
-    mariadb:
-        container_name: ${PROJECT_NAME}_mariadb_container
+    xxxxxxxxxxx_db:
+        container_name: xxxxxxxxxxx_mariadb_container
         env_file: .env
         working_dir: /app
         restart: always
-        image: "mariadb:latest"
-        volumes:
-            - "./source:/app"
-            - "./docker/mariadb/data:/var/lib/mysql"
-            - "./docker/mariadb/logs:/var/log/mysql"
-            - "./docker/mariadb/conf:/etc/mysql"
-        environment:
-            MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
-            MARIADB_DATABASE: "${MARIADB_DATABASE}"
-            MARIADB_USER: "${MARIADB_USER}"
-            MARIADB_PASSWORD: "${MARIADB_PASSWORD}"
         ports:
             - "3306:3306"
+        image: "mysql:8.0.31"
+        volumes:
+            - "./source:/app"
+            - "./docker/db/data:/var/lib/mysql"
+            - "./docker/db/logs:/var/log/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+            MYSQL_DATABASE: "${DB_DATABASE}"
+            MYSQL_USER: "${DB_USER}"
+            MYSQL_PASSWORD: "${DB_PASSWORD}"
+        networks:
+            - xxxxxxxxxxx_php_network
 
-    redis:
-        container_name: ${PROJECT_NAME}_redis_container
+    xxxxxxxxxxx_redis:
+        container_name: xxxxxxxxxxx_redis_container
         image: "redis:latest"
         environment:
             ALLOW_EMPTY_PASSWORD: "yes"
+        networks:
+            - xxxxxxxxxxx_php_network
+
+#Docker Networks
+networks:
+    xxxxxxxxxxx_php_network:
+        driver: bridge

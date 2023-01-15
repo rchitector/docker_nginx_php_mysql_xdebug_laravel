@@ -1,5 +1,5 @@
 .idea
 .env
-/docker/mariadb/data/
-/docker/mariadb/logs/
+/docker/db/data/
+/docker/db/logs/
 /docker/nginx/logs/

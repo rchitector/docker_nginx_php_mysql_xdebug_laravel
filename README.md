@@ -1,13 +1,17 @@
 **ОКРУЖЕНИЕ**
 - скопировать файл **.env.example** в файл с именем **.env**
 
-**MARIADB** - база данных
-- в файле **.env** в разделе **database** заменить все **CHANGE_ME** на нужные значения
-- логи БД лежат в папке: **docker/mariadb/logs**
-- все данные БД лежат в папке: **docker/mariadb/data**
+**xxxxxxxxxxx**
+- придумать название проекта в нижнем регистре без пробелов (например my_project)
+- заменить все упоминания **xxxxxxxxxxx** на название проекта
+- заменить все настройки в файле .env (DATABASE_PASSWORD, DATABASE_NAME, DATABASE_USER) на нужные
+
+**DB** - база данных
+- логи БД лежат в папке: **docker/db/logs**
+- все данные БД лежат в папке: **docker/db/data**
 
 **NGINX** - сервер
-- настройки лежат в файле **docker/nginx/nginx.conf**
+- настройки лежат в файле **docker/nginx/conf.d/nginx.conf**
 - логи сервера лежат в папке **docker/nginx/logs**
 
 **PHP** - интерпритатор
@@ -17,9 +21,9 @@
 **Установка LARAVEL**
 - в корне проекта выполнить **git clone https://github.com/laravel/laravel.git ./source**
 - скопировать данные настройки БД из файла **.env** в файл **./source/.env**
-- в файле **./source/.env** заменить **DB_HOST=127.0.0.1** на **DB_HOST=mariadb** чтобы соединение с БД смотрело в контейнер
-- выполнить команду **docker exec -it php_container bash**
-- **php_container** - это имя контейнера, изменить которое можно в файле **docker-compose.yml**
+- в файле **./source/.env** заменить **DB_HOST=127.0.0.1** на **DB_HOST=xxxxxxxxxxx_db** чтобы соединение с БД смотрело в контейнер
+- выполнить команду **docker exec -it xxxxxxxxxxx_php_container bash**
+- **xxxxxxxxxxx_php_container** - это имя контейнера, изменить которое можно в файле **docker-compose.yml**
 - внутри контейнера выполнить команду **composer install**
 - внутри контейнера выполнить команду **php artisan key:generate**
 - внутри контейнера выполнить команду **php artisan migrate**
