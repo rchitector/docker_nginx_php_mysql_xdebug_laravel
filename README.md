@@ -79,3 +79,6 @@ rm -rf ./source/.git && rm ./source/.gitignore
 
 ### Tests
 - выполнить команду в терминале: **docker exec -t  xxxxxxxxxxx_php_container php artisan test**
+
+### Chrome
+- иногда после изменения конфигурации nginx браузер не хочет обновлять редиректы. Один из вариантов это очистить кэш браузера (Ctrl + Shift + Del). 
