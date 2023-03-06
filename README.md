@@ -96,3 +96,38 @@ mv ./source/.env.example ./source/.env
 
 ### Chrome
 - иногда после изменения конфигурации nginx браузер не хочет обновлять редиректы. Один из вариантов это очистить кэш браузера (Ctrl + Shift + Del). 
+
+
+### установка и запуск докера (мои шаги):
+смотрим данные:
+id -u
+whoami
+grep ^$(whoami): /etc/subuid
+grep ^$(whoami): /etc/subgid
+
+если пусто, то:
+sudo systemctl disable --now docker.service docker.socket
+reboot
+curl -fsSL https://get.docker.com/rootless | sh
+если ругается, то  скорее всего нужно выполнить:
+su
+echo "dev:100000:65536" >> /etc/subuid
+echo "dev:100000:65536" >> /etc/subgid
+exit
+
+повторно смотрим данные:
+id -u
+whoami
+grep ^$(whoami): /etc/subuid
+grep ^$(whoami): /etc/subgid
+
+повторно устанавливаем:
+curl -fsSL https://get.docker.com/rootless | sh
+
+запускаем
+systemctl --user start docker
+запускаем при старте системы
+systemctl --user enable docker
+sudo loginctl enable-linger $(whoami)
+
+Phpstorm: File | Settings | Build, Execution, Deployment | Docker => Unix socket => rootless
