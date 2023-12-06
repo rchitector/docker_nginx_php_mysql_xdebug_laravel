@@ -62,7 +62,8 @@ sudo systemctl stop docker.service && sudo systemctl stop docker.socket
 - в данном случае для папки source нужно указать /app (что соответствует настройкам в docker-compose.yml xxxxxxxxxxx_php-fpm > volumes > "./source:/app")
 - в меню Run активировать пункт Start Listening for PHP Debug connection
 - ставим точку останова в коде и можно пробовать открывать страницу
-<!-- вот тут урок https://www.youtube.com/watch?v=7YuYxbYd3P0 -->
+- вот тут урок https://www.youtube.com/watch?v=7YuYxbYd3P0
+- к БД через phpstorm можноподключиться используя host 0.0.0.0
 
 ### Установка Laravel
 - очистить корень папки source:
